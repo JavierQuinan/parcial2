@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { ViajesModule } from './viaje/viaje.module';
 import { TuristasModule } from './turista/turista.module';
 import { DestinosModule } from './destino/destino.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [

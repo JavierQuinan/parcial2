@@ -5,21 +5,30 @@ import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly userService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  async signUpTurista(turistaDTO: TuristaDTO) {
-    return { message: 'Turista registrado exitosamente' };
+  async validarusuario(username: string, password: string): Promise<any> {
+    const user = await this.userService.BuscarporNombre(username);
+
+    const isValidPassword = await this.userService.verficaContrasenia(
+      password,
+      user.password,
+    );
+
+    if (user && isValidPassword) return user;
+    return null;
   }
-
-  async signUpViaje(viajeDTO: ViajeDTO) {
-    return { message: 'Viaje registrado exitosamente' };
+  async singIn(user: any) {
+    const payload = {
+      username: user.username,
+      sub: user._id,
+    };
+    return { access_token: this.jwtService.sign(payload) };
   }
-
-  async signUpDestino(destinoDTO: DestinoDTO) {
-    return { message: 'Destino registrado exitosamente' };
-  }
-
-  async signUpGuia(guiaDTO: GuiaDTO) {
-    return { message: 'Guía registrado exitosamente' };
+  async singUp(userDTO: UserDTO) {
+    return this.userService.insertar(userDTO);
   }
 }
