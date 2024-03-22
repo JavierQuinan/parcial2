@@ -4,17 +4,22 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UsersModule } from 'src/users/users.module';
+import { AuthController } from './auth.controller';
+import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'your-secret-key-here', // Aquí proporciona tu clave secreta
-      signOptions: { expiresIn: '1d' }, // Opcional: configuración de opciones de firma
+      secret: process.env.JWT_SECRET,
+      signOptions: {
+        expiresIn: process.env.JWT_EXPIRATION_TIME,
+        audience: process.env.API_URL,
+      },
     }),
   ],
-  providers: [AuthService, JwtStrategy], // Agrega JwtStrategy a los providers
-  exports: [PassportModule, JwtModule], // Exporta PassportModule y JwtModule
+  controllers: [AuthController],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}
