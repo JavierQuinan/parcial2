@@ -16,6 +16,7 @@ import { DestinosModule } from './destino/destino.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/parcial2'),
+    UsersModule,
     ViajesModule,
     DestinosModule,
     GuiasModule,

@@ -7,6 +7,18 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new AllExceptionFilter());
   app.useGlobalInterceptors(new TimeOutInterceptor());
-  await app.listen(3000);
+  app.enableCors();
+  const opciones = new DocumentBuilder()
+    .setTitle('Viajes API')
+    .setDescription('Documentacion de Viajes API')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, opciones);
+  SwaggerModule.setup('api/docs', app, document, {
+    swaggerOptions: {
+      filter: true,
+    },
+  });
+  await app.listen(process.env.API_PORT || 3000);
 }
 bootstrap();
