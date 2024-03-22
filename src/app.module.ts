@@ -9,6 +9,8 @@ import { ViajesModule } from './viaje/viaje.module';
 import { TuristasModule } from './turista/turista.module';
 import { DestinosModule } from './destino/destino.module';
 import { UsersModule } from './users/users.module';
+import { RelacionController } from './relaciones/relaciones.controller';
+import { RelacionModule } from './relaciones/relaciones.module';
 
 @Module({
   imports: [
@@ -23,8 +25,9 @@ import { UsersModule } from './users/users.module';
     GuiasModule,
     TuristasModule,
    AuthModule,
+   RelacionModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, RelacionController],
   providers: [AppService],
 })
 export class AppModule {}
