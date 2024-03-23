@@ -1,4 +1,3 @@
-// turistas.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TURISTA } from 'src/models/models';

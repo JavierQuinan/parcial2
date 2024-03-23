@@ -1,4 +1,3 @@
-// turistas.service.ts
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
